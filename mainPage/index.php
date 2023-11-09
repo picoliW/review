@@ -78,6 +78,14 @@ if (isset($_POST['logout'])) {
     <div id="registerMessage"></div>
 </div>
 
+    <div class="container"> 
+            <img class="title" src="..\assets\download.png" alt="macaco">
+            <img class="title" src="..\assets\download.png" alt="macaco">
+            <img class="title" src="..\assets\download.png" alt="macaco">
+            <img class="title" src="..\assets\download.png" alt="macaco">
+            <img class="title" src="..\assets\download.png" alt="macaco">
+    </div>
+
 </body>
 <script src="\script.js"></script>
 <script src="script-mainPage.js"></script>
