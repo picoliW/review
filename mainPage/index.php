@@ -18,13 +18,13 @@ if (isset($_POST['logout'])) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="../header&login.css">
-    <title>Alimentador Automatico</title>
+    <title>GL Reviewer</title>
 </head>
 <body>
     <header>
         <i class="fas fa-bars fa-2x" id="menu-icon"></i>
         <div class="page-title">
-        <h1>CRAZY MOTHERFUCKER</h1>
+        <h1>GL Reviewer</h1>
         </div>
         <?php if (isset($_SESSION['user_id'])) : ?>
             <div id="user-info" class="user-info">
@@ -41,7 +41,11 @@ if (isset($_POST['logout'])) {
     <div id="sidebar" class="sidebar">
     <ul>
         <li><a class="sidebar-link" href="\mainPage\index.php">Página Inicial</a></li>
-        <li><a class="sidebar-link" href="\profile\index.php">Perfil</a></li>
+        <?php if (isset($_SESSION['user_id'])) : ?>
+            <li><a class="sidebar-link" href="\profile\index.php">Perfil</a></li>
+        <?php else : ?>
+            <li><a class="sidebar-link">Faça login para ver o perfil</a></li>
+        <?php endif; ?>
     </ul>
     </div>
     <div id="overlay" class="overlay" onclick="closeLoginPopup()"></div>
@@ -78,13 +82,41 @@ if (isset($_POST['logout'])) {
     <div id="registerMessage"></div>
 </div>
 
-    <div class="container"> 
-            <img class="title" src="..\assets\download.png" alt="macaco">
-            <img class="title" src="..\assets\download.png" alt="macaco">
-            <img class="title" src="..\assets\download.png" alt="macaco">
-            <img class="title" src="..\assets\download.png" alt="macaco">
-            <img class="title" src="..\assets\download.png" alt="macaco">
+<div class="container">  
+<div class="image-container" id="shrekContainer">
+    <img class="title" src="..\assets\shrek.png" alt="macaco" onclick="openRatingModal('Shrek')">
+    <p class="image-text" onclick="openRatingModal('Shrek')">Shrek</p>
+</div>
+<div class="image-container" id="breakingBadContainer">
+    <img class="title" src="..\assets\breaking-bad.png" alt="macaco" onclick="openRatingModal('Breaking Bad')">
+    <p class="image-text" onclick="openRatingModal('Breaking Bad')">Breaking Bad</p>
+</div>
+<div class="image-container" id="round6Container">
+    <img class="title" src="..\assets\round6.png" alt="macaco" onclick="openRatingModal('Round 6')">
+    <p class="image-text" onclick="openRatingModal('Round 6')">Round 6</p>
+</div>
+</div>
+
+<div id="ratingModal" class="popup" style="display: none;">
+    <span class="close-button" onclick="closeRatingModal()">&#10006;</span>
+    <h2 class="rating-text">Avaliação da Série</h2>
+    <p id="selectedSeries"></p>
+    <form id="rating-form" method="post" action="cu.php" onsubmit="submitRating(event)">
+    <input type="hidden" id="titulo" name="titulo" value="Nome da Série Predefinido">
+    <label for="rating">Avalie de 1 a 10:</label>
+    <input type="number" id="rating" name="rating" min="1" max="10">
+    <br>
+    <label for="episodesWatched">Quantidade de episódios assistidos:</label>
+    <input type="number" id="episodesWatched" name="episodes_watched" min="0">
+    <br>
+    <div class="submit-text-section">
+    <button class="submit-text" type="submit" onclick="submitRating()">Submeter</button>
+
     </div>
+</form>
+    <div id="ratingMessage"></div>
+</div>
+
 
 </body>
 <script src="\script.js"></script>
