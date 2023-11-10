@@ -1,3 +1,6 @@
+
+
+
 function openRatingModal(seriesTitle) {
     document.getElementById('selectedSeries').innerHTML = `Avalie a série ${seriesTitle}`;
     document.getElementById('ratingModal').style.display = 'block';
@@ -7,7 +10,7 @@ function openRatingModal(seriesTitle) {
 function closeRatingModal() {
     document.getElementById('ratingModal').style.display = 'none';
 }
-
+document.getElementById("overlay").addEventListener("click", closeRatingModal);
 function submitRating() {
     event.preventDefault();
     if (validateForm()) {

@@ -48,7 +48,7 @@ if (isset($_POST['logout'])) {
         <?php endif; ?>
     </ul>
     </div>
-    <div id="overlay" class="overlay" onclick="closeLoginPopup()"></div>
+    <div id="overlay" class="overlay" onclick="closeLoginPopup()" onclick="closeRegisterPopup()"></div>
     <div id="loginPopup" class="popup">
         <span class="close-button" onclick="closeLoginPopup()">&#10006;</span>
         <h2 class="login-text">Login</h2>
@@ -65,7 +65,7 @@ if (isset($_POST['logout'])) {
         </form>
         <div id="message"></div>
     </div>
-    <div id="registerPopup" class="popup" style="display: none;">
+    <div id="registerPopup" class="popup">
     <span class="close-button" onclick="closeRegisterPopup()">&#10006;</span>
     <h2 class="register-text">Cadastro</h2>
     <form id="register-form" method="post">

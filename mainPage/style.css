@@ -21,8 +21,7 @@ body {
     padding: 4px;
     width: 200px; 
     height: auto; 
-    border: 5px solid #000; /* Uma borda sólida preta de 2px */
-
+    border: 5px solid #000; 
 }
 
 .title-container {

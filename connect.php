@@ -3,9 +3,9 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 $host = "localhost";
-$database = "review";
+$database = "reviews";
 $username = "postgres";
-$password = "123";
+$password = "1234";
 
 try {
     $pdo = new PDO("pgsql:host=$host;dbname=$database", $username, $password);

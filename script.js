@@ -20,24 +20,29 @@ document.addEventListener('DOMContentLoaded', function () {
     const loginButton = document.getElementById('loginButton');
 
     loginForm.addEventListener('submit', function (event) {
-    event.preventDefault(); 
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
+        event.preventDefault();
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
 
-    fetch('/verify.php', {
-        method: 'POST',
-        body: new URLSearchParams({ username, password }),
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-        }
-    })
-    .then(response => response.text())
-    .then(data => {
-        message.innerText = data;
+        fetch('/verify.php', {
+            method: 'POST',
+            body: new URLSearchParams({ username, password }),
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        })
+        .then(response => response.text())
+        .then(data => {
+            message.innerText = data;
+            
+            if (data === "Login bem-sucedido!") {
+                window.location.reload();
+            }
+        });
     });
 });
 
-});
+
 
 document.getElementById("menu-icon").addEventListener("click", openSidebar);
 
@@ -57,6 +62,8 @@ document.addEventListener("click", function (event) {
         closeSidebar();
     }
 });
+
+document.getElementById("overlay").addEventListener("click", closeRegisterPopup);
 
 function openRegisterPopup() {
     document.getElementById("overlay").style.display = "block";
