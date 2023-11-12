@@ -1,5 +1,7 @@
 <?php
-session_start();
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 include '../connect.php';
 
 if (isset($_POST['logout'])) {
@@ -105,6 +107,7 @@ if (isset($_SESSION['user_id'])) {
         <div id="registerMessage"></div>
     </div>
 
+    </form>            
     <div id="user-series" class="user-series">
         <?php if (isset($seriesData) && !empty($seriesData)) : ?>
             <h2>Títulos Avaliados:</h2>

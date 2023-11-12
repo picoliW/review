@@ -240,3 +240,14 @@ footer{
   .Itens div{
   margin-bottom: 10px;
   }
+
+.search-result {
+
+    justify-content: center;
+    display: inline;
+}
+
+.bucetaPRETA{
+    display: flex;
+    height: 4rem;
+}

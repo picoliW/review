@@ -61,30 +61,6 @@ header {
     float: right;
 }
 
-.sidebar {
-    width: 200px;
-    height: 100%;
-    background-color: #555;
-    position: fixed;
-    left: 0;
-    top: 0;
-    overflow-x: hidden;
-    padding-top: 20px;
-}
-
-.sidebar a {
-    padding: 8px 8px 8px 16px;
-    text-decoration: none;
-    font-size: 18px;
-    color: #f1f1f1;
-    display: block;
-}
-
-.sidebar a:hover {
-    color: #f1f1f1;
-    background-color: #777;
-}
-
 .user-series {
     margin-top: 50px;
     margin-left: 230px;
@@ -165,4 +141,10 @@ ul li strong {
 .user-series h2 {
     margin-bottom: 20px;
     clear: both; 
+}
+
+.profileImage{
+    display: flex;
+    width: 15rem;
+    height: 12rem;
 }

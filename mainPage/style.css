@@ -10,11 +10,11 @@ body {
 }
 
 .container {
-    display: flex;
+    display: block;
     justify-content: center;
     max-width: 100%;
     width: 100%;
-
+    padding-left: 34rem;
 }
 
 .title {
@@ -38,4 +38,14 @@ body {
 .image-text {
     display: block;
     margin-top: 10px; 
+}
+
+.ratingModal{
+    display: flex;
+    width: 10%;
+    max-width: 10%;
+}
+
+#episodesWatched{
+    width: 14%;
 }

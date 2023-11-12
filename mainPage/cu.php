@@ -18,4 +18,11 @@ if ($stmt->execute()) {
 } else {
     echo "Erro ao inserir dados: " . $stmt->errorInfo();
 }
+
+$sinopses = array(
+    'Shrek' => 'Uma animação incrível sobre um ogro verde e suas aventuras inusitadas.',
+    'Breaking Bad' => 'A história de um professor de química que se transforma em um poderoso traficante de drogas.',
+    'Round 6' => 'Participantes de um jogo misterioso lutam pela sobrevivência em busca de um grande prêmio.'
+);
 ?>
+

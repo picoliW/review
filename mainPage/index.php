@@ -1,6 +1,9 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
 session_start();
 include '../connect.php';
+
 
 if (isset($_POST['logout'])) {
     session_unset();
@@ -8,7 +11,30 @@ if (isset($_POST['logout'])) {
     header('Location: index.php');
     exit();
 }
+$sinopses = array(
+    'Shrek' => 'Uma animação incrível sobre um ogro verde e suas aventuras<br> inusitadas.',
+    'Breaking Bad' => 'A história de um professor de química que se transforma em<br> um poderoso traficante de drogas.',
+    'Round 6' => 'Participantes de um jogo misterioso lutam pela sobrevivência<br> em busca de um grande prêmio.'
+);
+
+if (isset($_GET['search'])) {
+    $searchTerm = $_GET['search'];
+
+    try {
+    $query = "SELECT * FROM series WHERE titulo LIKE :searchTerm";
+
+    $stmt = $pdo->prepare($query);
+    $stmt->bindParam(':searchTerm', $searchTerm, PDO::PARAM_STR);
+    $stmt->execute();
+    $searchResults = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+}
+ catch (PDOException $e) {
+    echo 'Erro ao executar a consulta: ' . $e->getMessage();
+}
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,11 +54,19 @@ if (isset($_POST['logout'])) {
         </div>
         <?php if (isset($_SESSION['user_id'])) : ?>
             <div id="user-info" class="user-info">
+    <form method="get" action="">
+    <label for="search">Pesquisar série:</label>
+    <input type="text" id="search" name="search">
+    <button type="submit">Pesquisar</button>
+</form>
+
+
                 <span id="usernameDisplay" class="username-display">Bem vindo, <?php echo $_SESSION['usuario']; ?></span>
             <form method="post" action="">
                 <button type="submit" name="logout" method="post">Sair</button>
             </form>
             </div>
+            
         <?php else : ?>
             <span class="login-button" id="loginButton" ><span onclick="openLoginPopup()">Entrar</span>/<span onclick="openRegisterPopup()">Cadastro</span></span>
             
@@ -82,29 +116,47 @@ if (isset($_POST['logout'])) {
     <div id="registerMessage"></div>
 </div>
 
-<div class="container">  
+<div class="container">
+<?php if (isset($searchResults)) : ?>
+    <div class="bucetaPRETA">
+    <h2>Resultados da Pesquisa para "<?php echo $searchTerm; ?>"</h2>
+    </div>
+    <?php
+    foreach ($searchResults as $result) {
+        echo '<div class="search-result">';
+        echo '<img src="' . $result['imagem_path'] . '" alt="' . $result['titulo'] . '">';
+        echo '<p>' . $result['titulo'] . '</p>';
+        echo '<a href="#" onclick="openRatingModal(\'' . $result['titulo'] . '\', \'' . $result['sinopse'] . '\')">Ver Detalhes</a>';
+        echo '</div>';
+    }
+    ?>
+<?php else : ?>
 <div class="image-container" id="shrekContainer">
-    <img class="title" src="..\assets\shrek.png" alt="macaco" onclick="openRatingModal('Shrek')">
-    <p class="image-text" onclick="openRatingModal('Shrek')">Shrek</p>
+    <img class="title" src="..\assets\shrek.png" alt="macaco" onclick="openRatingModal('Shrek', '<?php echo $sinopses['Shrek']; ?>')">
+    <p class="image-text" onclick="openRatingModal('Shrek', '<?php echo $sinopses['Shrek']; ?>')">Shrek</p>
+
 </div>
 <div class="image-container" id="breakingBadContainer">
-    <img class="title" src="..\assets\breaking-bad.png" alt="macaco" onclick="openRatingModal('Breaking Bad')">
-    <p class="image-text" onclick="openRatingModal('Breaking Bad')">Breaking Bad</p>
+    <img class="title" src="..\assets\breaking-bad.png" alt="macaco" onclick="openRatingModal('Breaking Bad', '<?php echo $sinopses['Breaking Bad']; ?>')">
+    <p class="image-text" onclick="openRatingModal('Breaking Bad', '<?php echo $sinopses['Breaking Bad']; ?>')">Breaking Bad</p>
 </div>
 <div class="image-container" id="round6Container">
-    <img class="title" src="..\assets\round6.png" alt="macaco" onclick="openRatingModal('Round 6')">
-    <p class="image-text" onclick="openRatingModal('Round 6')">Round 6</p>
+    <img class="title" src="..\assets\round6.png" alt="macaco" onclick="openRatingModal('Round 6', '<?php echo $sinopses['Round 6']; ?>')">
+    <p class="image-text" onclick="openRatingModal('Round 6', '<?php echo $sinopses['Round 6']; ?>')">Round 6</p>
 </div>
-</div>
+<?php endif; ?>
 
 <div id="ratingModal" class="popup" style="display: none;">
     <span class="close-button" onclick="closeRatingModal()">&#10006;</span>
-    <h2 class="rating-text">Avaliação da Série</h2>
+    <h3 class="rating-text">Informações da Série</h3>
     <p id="selectedSeries"></p>
+    <p id="sinopse"></p>
     <form id="rating-form" method="post" action="cu.php" onsubmit="submitRating(event)">
     <input type="hidden" id="titulo" name="titulo" value="Nome da Série Predefinido">
+    <h3 class="rating-text">Avaliação da Série:</h3>
     <label for="rating">Avalie de 1 a 10:</label>
     <input type="number" id="rating" name="rating" min="1" max="10">
+    <br>
     <br>
     <label for="episodesWatched">Quantidade de episódios assistidos:</label>
     <input type="number" id="episodesWatched" name="episodes_watched" min="0">
