@@ -13,7 +13,7 @@ if (isset($_POST['logout'])) {
 
 if (isset($_SESSION['user_id'])) {
     $usuario_id = $_SESSION['user_id'];
-    $query = "SELECT * FROM series WHERE userid = :userid";
+    $query = "SELECT * FROM avaliacao WHERE userid = :userid";
     $stmt = $pdo->prepare($query);
     $stmt->bindParam(':userid', $usuario_id);
     $stmt->execute();
@@ -22,7 +22,7 @@ if (isset($_SESSION['user_id'])) {
 
 if (isset($_SESSION['user_id'])) {
     $usuario_id = $_SESSION['user_id'];
-    $query = "SELECT DISTINCT ON (titulo) * FROM series WHERE userid = :userid ORDER BY titulo, id DESC";
+    $query = "SELECT DISTINCT ON (titulo) * FROM avaliacao WHERE userid = :userid ORDER BY titulo, id DESC";
     $stmt = $pdo->prepare($query);
     $stmt->bindParam(':userid', $usuario_id);
     $stmt->execute();

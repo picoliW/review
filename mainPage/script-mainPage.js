@@ -1,11 +1,12 @@
 
 
 
-function openRatingModal(seriesTitle, sinopse) {
+function openRatingModal(seriesTitle, sinopse, categoria) {
     document.getElementById('selectedSeries').innerHTML = `Avalie a série ${seriesTitle}`;
+    document.getElementById('sinopse').innerHTML = `<h3>Sinopse:</h3> ${sinopse}`;
+    document.getElementById('categoria').innerHTML = `<h3>Categoria:</h3> ${categoria}`;
     document.getElementById('ratingModal').style.display = 'block';
     document.getElementById('titulo').value = seriesTitle;
-    document.getElementById('sinopse').innerHTML = `<h3>Sinopse:</h3> ${sinopse}`;
 }
 
 function closeRatingModal() {

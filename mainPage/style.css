@@ -43,7 +43,7 @@ body {
 .ratingModal{
     display: flex;
     width: 10%;
-    max-width: 10%;
+    max-width: 1%;
 }
 
 #episodesWatched{

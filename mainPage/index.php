@@ -11,10 +11,20 @@ if (isset($_POST['logout'])) {
     header('Location: index.php');
     exit();
 }
+
 $sinopses = array(
-    'Shrek' => 'Uma animação incrível sobre um ogro verde e suas aventuras<br> inusitadas.',
-    'Breaking Bad' => 'A história de um professor de química que se transforma em<br> um poderoso traficante de drogas.',
-    'Round 6' => 'Participantes de um jogo misterioso lutam pela sobrevivência<br> em busca de um grande prêmio.'
+    'Shrek' => array(
+        'sinopse' => 'Uma animação incrível sobre um ogro verde e suas aventuras inusitadas.',
+        'categoria' => 'Fantasia, Aventura e Comédia'
+    ),
+    'Breaking Bad' => array(
+        'sinopse' => 'A história de um professor de química que se transforma em um poderoso traficante de drogas.',
+        'categoria' => 'Ação, Drama'
+    ),
+    'Round 6' => array(
+        'sinopse' => 'Participantes de um jogo misterioso lutam pela sobrevivência em busca de um grande prêmio.',
+        'categoria' => 'Romance, Ação, Drama, Comédia, Guerra'
+    )
 );
 
 if (isset($_GET['search'])) {
@@ -126,23 +136,23 @@ if (isset($_GET['search'])) {
         echo '<div class="search-result">';
         echo '<img src="' . $result['imagem_path'] . '" alt="' . $result['titulo'] . '">';
         echo '<p>' . $result['titulo'] . '</p>';
-        echo '<a href="#" onclick="openRatingModal(\'' . $result['titulo'] . '\', \'' . $result['sinopse'] . '\')">Ver Detalhes</a>';
+        echo '<p>Categoria: ' . $sinopses[$result['titulo']]['categoria'] . '</p>';
+        echo '<a href="#" onclick="openRatingModal(\'' . $result['titulo'] . '\', \'' . $result['sinopse'] . '\', \'' . $sinopses[$result['titulo']]['categoria'] . '\')">Ver Detalhes</a>';
         echo '</div>';
     }
     ?>
 <?php else : ?>
-<div class="image-container" id="shrekContainer">
-    <img class="title" src="..\assets\shrek.png" alt="macaco" onclick="openRatingModal('Shrek', '<?php echo $sinopses['Shrek']; ?>')">
-    <p class="image-text" onclick="openRatingModal('Shrek', '<?php echo $sinopses['Shrek']; ?>')">Shrek</p>
-
+    <div class="image-container" id="shrekContainer">
+    <img class="title" src="..\assets\shrek.png" alt="macaco" onclick="openRatingModal('Shrek', '<?php echo $sinopses['Shrek']['sinopse']; ?>', '<?php echo $sinopses['Shrek']['categoria']; ?>')">
+    <p class="image-text" onclick="openRatingModal('Shrek', '<?php echo $sinopses['Shrek']['sinopse']; ?>', '<?php echo $sinopses['Shrek']['categoria']; ?>')">Shrek</p>
 </div>
 <div class="image-container" id="breakingBadContainer">
-    <img class="title" src="..\assets\breaking-bad.png" alt="macaco" onclick="openRatingModal('Breaking Bad', '<?php echo $sinopses['Breaking Bad']; ?>')">
-    <p class="image-text" onclick="openRatingModal('Breaking Bad', '<?php echo $sinopses['Breaking Bad']; ?>')">Breaking Bad</p>
+    <img class="title" src="..\assets\breaking-bad.png" alt="macaco" onclick="openRatingModal('Breaking Bad', '<?php echo $sinopses['Breaking Bad']['sinopse']; ?>', '<?php echo $sinopses['Breaking Bad']['categoria']; ?>')">
+    <p class="image-text" onclick="openRatingModal('Breaking Bad', '<?php echo $sinopses['Breaking Bad']['sinopse']; ?>', '<?php echo $sinopses['Breaking Bad']['categoria']; ?>')">Breaking Bad</p>
 </div>
 <div class="image-container" id="round6Container">
-    <img class="title" src="..\assets\round6.png" alt="macaco" onclick="openRatingModal('Round 6', '<?php echo $sinopses['Round 6']; ?>')">
-    <p class="image-text" onclick="openRatingModal('Round 6', '<?php echo $sinopses['Round 6']; ?>')">Round 6</p>
+    <img class="title" src="..\assets\round6.png" alt="macaco" onclick="openRatingModal('Round 6', '<?php echo $sinopses['Round 6']['sinopse']; ?>', '<?php echo $sinopses['Round 6']['categoria']; ?>')">
+    <p class="image-text" onclick="openRatingModal('Round 6', '<?php echo $sinopses['Round 6']['sinopse']; ?>', '<?php echo $sinopses['Round 6']['categoria']; ?>')">Round 6</p>
 </div>
 <?php endif; ?>
 
@@ -151,6 +161,8 @@ if (isset($_GET['search'])) {
     <h3 class="rating-text">Informações da Série</h3>
     <p id="selectedSeries"></p>
     <p id="sinopse"></p>
+    <p id="categoria"></p>
+
     <form id="rating-form" method="post" action="cu.php" onsubmit="submitRating(event)">
     <input type="hidden" id="titulo" name="titulo" value="Nome da Série Predefinido">
     <h3 class="rating-text">Avaliação da Série:</h3>
