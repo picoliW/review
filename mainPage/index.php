@@ -134,7 +134,7 @@ if (isset($_GET['search'])) {
     <?php
     foreach ($searchResults as $result) {
         echo '<div class="search-result">';
-        echo '<img src="' . $result['imagem_path'] . '" alt="' . $result['titulo'] . '">';
+        echo '<img src="' . $result['imagem_path'] . '" alt="' . $result['titulo'] . '" class="img-search">';
         echo '<p>' . $result['titulo'] . '</p>';
         echo '<p>Categoria: ' . $sinopses[$result['titulo']]['categoria'] . '</p>';
         echo '<a href="#" onclick="openRatingModal(\'' . $result['titulo'] . '\', \'' . $result['sinopse'] . '\', \'' . $sinopses[$result['titulo']]['categoria'] . '\')">Ver Detalhes</a>';

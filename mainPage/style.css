@@ -14,7 +14,7 @@ body {
     justify-content: center;
     max-width: 100%;
     width: 100%;
-    padding-left: 34rem;
+    padding-left: 45rem;
 }
 
 .title {
@@ -48,4 +48,8 @@ body {
 
 #episodesWatched{
     width: 14%;
+}
+
+.img-search{
+    max-width: 10%;
 }
